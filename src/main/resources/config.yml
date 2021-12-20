@@ -1,0 +1,48 @@
+waiting-location:
+  ==: org.bukkit.Location
+  world: world
+  x: 2030.5350397488708
+  y: 96.0
+  z: 694.3906057646826
+  pitch: 20.133442
+  yaw: 172.5712
+
+arena:
+  spawn-points:
+    "RED":
+      spawn-location:
+        ==: org.bukkit.Location
+        world: world
+        x: 2030.5350397488708
+        y: 96.0
+        z: 694.3906057646826
+        pitch: 20.133442
+        yaw: 172.5712
+    "BLUE":
+      spawn-location:
+        ==: org.bukkit.Location
+        world: world
+        x: 2030.5350397488708
+        y: 96.0
+        z: 694.3906057646826
+        pitch: 20.133442
+        yaw: 172.5712
+    "GREEN":
+      spawn-location:
+        ==: org.bukkit.Location
+        world: world
+        x: 2030.5350397488708
+        y: 96.0
+        z: 694.3906057646826
+        pitch: 20.133442
+        yaw: 172.5712
+    "YELLOW":
+      spawn-location:
+        ==: org.bukkit.Location
+        world: world
+        x: 2030.5350397488708
+        y: 96.0
+        z: 694.3906057646826
+        pitch: 20.133442
+        yaw: 172.5712
+

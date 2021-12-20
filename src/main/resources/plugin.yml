@@ -1,0 +1,14 @@
+name: ArenaFight
+version: '${project.version}'
+main: fr.iban.arenafight.ArenaFightPlugin
+api-version: 1.17
+authors: [ Iban ]
+depend:
+  - MenuAPI
+
+commands:
+  duel:
+  arenafight:
+    aliases:
+      - af
+    permission: arenafight.command
