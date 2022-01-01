@@ -23,6 +23,7 @@ public class PlayerDeathListener implements Listener {
         Fight fight = plugin.getFightManager().getPlayingFight(player);
         if(fight != null){
             e.setKeepLevel(true);
+            e.setDroppedExp(0);
             e.setShouldDropExperience(false);
             e.getDrops().clear();
             plugin.getServer().getScheduler().runTaskLater(plugin, () -> {

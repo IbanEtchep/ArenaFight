@@ -104,6 +104,10 @@ public class FightManager {
         return waitingList;
     }
 
+    public Fight getCurrentFight() {
+        return currentFight;
+    }
+
     private Arena getArenaFromConfig(){
         Arena arena = new Arena();
         for(String key : plugin.getConfig().getConfigurationSection("arena.spawn-points").getKeys(false)){

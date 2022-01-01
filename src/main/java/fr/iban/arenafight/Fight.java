@@ -8,6 +8,7 @@ import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -48,6 +49,7 @@ public class Fight {
         gameState = GameState.RUNNING;
         for(ArenaPlayer arenaPlayer : getArenaPlayers().values()){
             Player player = arenaPlayer.getPlayer();
+            player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
             arenaPlayer.saveInventory();
             if(kit != null){
                 kit.giveToPlayer(player);

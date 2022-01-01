@@ -34,7 +34,8 @@ public final class ArenaFightPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
+        fightManager.getArena().getSpawnPoints().forEach((team, spawnPoint) -> spawnPoint.closeDoor());
+        fightManager.getCurrentFight().getArenaPlayers().forEach((uuid, arenaPlayer) -> arenaPlayer.restoreInventory());
     }
 
     private void registerListeners(Listener... listeners) {

@@ -6,6 +6,7 @@ import fr.iban.arenafight.SpawnPoint;
 import fr.iban.arenafight.enums.Team;
 import fr.iban.arenafight.manager.FightManager;
 import fr.iban.arenafight.menu.ArenaFightMenu;
+import net.md_5.bungee.api.chat.ComponentBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

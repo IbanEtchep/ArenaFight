@@ -75,11 +75,13 @@ public class DuelCMD implements CommandExecutor {
                         switch (args[0]){
                             case "accept":
                                 target.sendMessage("§a"+player.getName()+ " a accepté votre demande de duel. Vous avez été placés dans la file d'attente.");
+                                player.sendMessage("§aVotre duel a été placé dans la file d'attente.");
                                 plugin.getFightManager().addDuelToQueue(duelsRequests.get(target.getUniqueId()));
                                 duelsRequests.remove(target.getUniqueId());
                                 break;
                             case "deny":
                                 target.sendMessage("§c"+player.getName() + " a rejeté votre demande de duel.");
+                                player.sendMessage("§cVous avez rejeté la demande de duel.");
                                 duelsRequests.remove(target.getUniqueId());
                                 break;
                         }

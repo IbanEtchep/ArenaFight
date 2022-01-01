@@ -2,6 +2,7 @@ package fr.iban.arenafight;
 
 import fr.iban.arenafight.enums.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -49,6 +50,7 @@ public class ArenaPlayer {
 
     public void restoreInventory(){
         savedInventory.giveToPlayer(getPlayer());
+        getPlayer().setHealth(getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
     }
 
 }

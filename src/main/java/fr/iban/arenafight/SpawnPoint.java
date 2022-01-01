@@ -24,6 +24,7 @@ public class SpawnPoint implements ConfigurationSerializable {
     private List<Location> doorLocations = new ArrayList<>();
     private Map<Location, BlockData> blockDataMap = new HashMap<>();
     private Location spawnLocation;
+    private boolean doorOpened = false;
 
     public SpawnPoint(Map<String, Object> map){
         if(map.containsKey("doorLocations")){
@@ -47,20 +48,26 @@ public class SpawnPoint implements ConfigurationSerializable {
     }
 
     public void openDoor(){
-        for (Location loc : getDoorLocations()) {
-            blockDataMap.put(loc, loc.getBlock().getBlockData());
-        }
-        for(Location loc : getDoorLocations()){
-            loc.getBlock().setType(Material.AIR);
-            loc.getWorld().spawnParticle(Particle.CLOUD, loc, 50, 1,1,1,1);
+        if(!doorOpened){
+            for (Location loc : getDoorLocations()) {
+                blockDataMap.put(loc, loc.getBlock().getBlockData());
+            }
+            for(Location loc : getDoorLocations()){
+                loc.getBlock().setType(Material.AIR);
+                loc.getWorld().spawnParticle(Particle.CLOUD, loc, 50, 1,1,1,1);
+            }
+            doorOpened = true;
         }
     }
 
     public void closeDoor(){
-        for(Location loc : getDoorLocations()){
-            loc.getBlock().setType(Material.IRON_BARS);
-            loc.getBlock().setBlockData(blockDataMap.get(loc));
-            loc.getWorld().spawnParticle(Particle.CLOUD, loc, 50, 1,1,1,1);
+        if(doorOpened){
+            for(Location loc : getDoorLocations()){
+                loc.getBlock().setType(Material.IRON_BARS);
+                loc.getBlock().setBlockData(blockDataMap.get(loc));
+                loc.getWorld().spawnParticle(Particle.CLOUD, loc, 50, 1,1,1,1);
+            }
+            doorOpened = false;
         }
     }
 
