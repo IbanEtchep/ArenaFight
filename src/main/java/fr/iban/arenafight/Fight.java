@@ -65,6 +65,7 @@ public class Fight {
     }
 
     public void finish(){
+        gameState = GameState.FINISHED;
         players.values().forEach(arenaPlayer -> {
             Player player = arenaPlayer.getPlayer();
             if(player != null){
@@ -83,7 +84,6 @@ public class Fight {
             arena.getSpawnPoints().get(team).closeDoor();
         }
         arena.setHasFightRunning(false);
-        gameState = GameState.FINISHED;
     }
 
 
@@ -190,8 +190,8 @@ public class Fight {
         if(gameState == GameState.RUNNING){
             ArenaPlayer arenaPlayer = players.get(uuid);
             Player player = arenaPlayer.getPlayer();
-            player.teleport(plugin.getFightManager().getWaitingPoint());
             arenaPlayer.setAlive(false);
+            player.teleport(plugin.getFightManager().getWaitingPoint());
             arenaPlayer.restoreInventory();
             if(getAliveTeams().size() == 1){
                 finish();

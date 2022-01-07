@@ -2,9 +2,7 @@ package fr.iban.arenafight;
 
 import fr.iban.arenafight.command.ArenaFightCMD;
 import fr.iban.arenafight.command.DuelCMD;
-import fr.iban.arenafight.listener.CommandListener;
-import fr.iban.arenafight.listener.PlayerDeathListener;
-import fr.iban.arenafight.listener.PlayerQuitListener;
+import fr.iban.arenafight.listener.*;
 import fr.iban.arenafight.manager.FightManager;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -28,14 +26,21 @@ public final class ArenaFightPlugin extends JavaPlugin {
         getCommand("arenafight").setTabCompleter(new ArenaFightCMD(this));
         getCommand("duel").setExecutor(new DuelCMD(this));
 
-        registerListeners(new PlayerDeathListener(this), new PlayerQuitListener(fightManager),new CommandListener(this)
+        registerListeners(
+                new PlayerDeathListener(this),
+                new PlayerQuitListener(fightManager),
+                new CommandListener(this),
+                new PlayerTeleportListener(fightManager),
+                new PlayerDropItemListener(fightManager)
         );
     }
 
     @Override
     public void onDisable() {
         fightManager.getArena().getSpawnPoints().forEach((team, spawnPoint) -> spawnPoint.closeDoor());
-        fightManager.getCurrentFight().getArenaPlayers().forEach((uuid, arenaPlayer) -> arenaPlayer.restoreInventory());
+        if(fightManager.getCurrentFight() != null){
+            fightManager.getCurrentFight().getArenaPlayers().forEach((uuid, arenaPlayer) -> arenaPlayer.restoreInventory());
+        }
     }
 
     private void registerListeners(Listener... listeners) {
