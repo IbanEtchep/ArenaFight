@@ -52,5 +52,4 @@ public class ArenaPlayer {
         savedInventory.giveToPlayer(getPlayer());
         getPlayer().setHealth(getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
     }
-
 }

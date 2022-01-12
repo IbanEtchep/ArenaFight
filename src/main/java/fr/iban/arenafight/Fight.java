@@ -10,7 +10,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.PlayerInventory;
 
 import java.util.*;
 
@@ -45,8 +44,8 @@ public class Fight {
     }
 
     public void start(){
-        arena.setHasFightRunning(true);
         gameState = GameState.RUNNING;
+        arena.setHasFightRunning(true);
         for(ArenaPlayer arenaPlayer : getArenaPlayers().values()){
             Player player = arenaPlayer.getPlayer();
             player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
@@ -55,7 +54,7 @@ public class Fight {
                 kit.giveToPlayer(player);
             }
             Location spawnLoc = arena.getSpawnPoints().get(arenaPlayer.getTeam()).getSpawnLocation();
-            player.teleport(spawnLoc);
+            player.teleportAsync(spawnLoc);
         }
         new StartTask(this, () -> {
             for(Team team : teams.keySet()){
@@ -199,7 +198,9 @@ public class Fight {
         }
     }
 
-
+    public Arena getArena() {
+        return arena;
+    }
 
     @Override
     public String toString() {

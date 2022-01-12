@@ -60,16 +60,16 @@ public class KitSelectMenu extends LazyPaginatedMenu<Kit> {
 
     @Override
     public void setMenuItems() {
-        addMenuItem(new MenuItem(26, new ItemBuilder(Material.ANVIL)
-                .setName("§6Inventaire actuel").addLore("§eBattez-vous avec votre inventaire actuel.")
-                .addLore("§7Tous les participants auront votre inventaire.")
-                .build())
-                .setClickCallback(e -> {
-                    Kit kit = new Kit(player.getInventory());
-                    kit.setDisplayName("Inventaire de "+player.getName());
-                    player.closeInventory();
-                    kitConsumer.accept(kit);
-                }));
+//        addMenuItem(new MenuItem(26, new ItemBuilder(Material.ANVIL)
+//                .setName("§6Inventaire actuel").addLore("§eBattez-vous avec votre inventaire actuel.")
+//                .addLore("§7Tous les participants auront votre inventaire.")
+//                .build())
+//                .setClickCallback(e -> {
+//                    Kit kit = new Kit(player.getInventory());
+//                    kit.setDisplayName("Inventaire de "+player.getName());
+//                    player.closeInventory();
+//                    kitConsumer.accept(kit);
+//                }));
         addMenuItem(getNextBotton());
         addMenuItem(getPreviousBotton());
     }

@@ -37,9 +37,9 @@ public class FightManager {
             if(currentFight == null && !waitingList.isEmpty()){
                 for (Fight fight : waitingList){
                     if(fight.canStart()){
-                        fight.start();
                         currentFight = fight;
                         waitingList.remove(fight);
+                        fight.start();
                         break;
                     }
                 }
