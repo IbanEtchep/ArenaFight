@@ -16,9 +16,9 @@ import java.util.*;
 public class Fight {
 
     private GameState gameState = GameState.WAITING;
-    private Arena arena;
-    private Map<Team, Collection<ArenaPlayer>> teams = new HashMap<>();
-    private Map<UUID, ArenaPlayer> players = new HashMap<>();
+    private final Arena arena;
+    private final Map<Team, Collection<ArenaPlayer>> teams = new HashMap<>();
+    private final Map<UUID, ArenaPlayer> players = new HashMap<>();
     private Kit kit;
     private int rounds = 1;
     private int currentRound = 1;
