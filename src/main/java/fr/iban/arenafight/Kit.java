@@ -50,6 +50,7 @@ public class Kit implements ConfigurationSerializable {
 
     public void giveToPlayer(Player player){
         player.getInventory().clear();
+        player.setItemOnCursor(null);
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
 
         if(armorContent != null){

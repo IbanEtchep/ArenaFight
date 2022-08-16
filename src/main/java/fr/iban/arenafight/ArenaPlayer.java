@@ -2,10 +2,13 @@ package fr.iban.arenafight;
 
 import fr.iban.arenafight.enums.Team;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class ArenaPlayer {
@@ -49,8 +52,13 @@ public class ArenaPlayer {
     }
 
     public void restoreInventory(){
-        getPlayer().closeInventory();
-        savedInventory.giveToPlayer(getPlayer());
-        getPlayer().setHealth(getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+        Player player = getPlayer();
+        ItemStack cursor = player.getItemOnCursor();
+        if(cursor.getType() != Material.AIR) {
+            player.getInventory().addItem(cursor);
+            player.setItemOnCursor(null);
+        }
+        savedInventory.giveToPlayer(player);
+        player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
     }
 }
