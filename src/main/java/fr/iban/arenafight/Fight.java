@@ -50,11 +50,11 @@ public class Fight {
             Player player = arenaPlayer.getPlayer();
             player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
             arenaPlayer.saveInventory();
+            Location spawnLoc = arena.getSpawnPoints().get(arenaPlayer.getTeam()).getSpawnLocation();
+            player.teleportAsync(spawnLoc);
             if(kit != null){
                 kit.giveToPlayer(player);
             }
-            Location spawnLoc = arena.getSpawnPoints().get(arenaPlayer.getTeam()).getSpawnLocation();
-            player.teleportAsync(spawnLoc);
         }
         new StartTask(this, () -> {
             for(Team team : teams.keySet()){
