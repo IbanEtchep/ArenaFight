@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public class ArenaPlayer {
 
-    private UUID uuid;
+    private final UUID uuid;
     private Kit savedInventory;
     private Team team;
     private boolean alive = true;
@@ -24,6 +24,10 @@ public class ArenaPlayer {
 
     public boolean isAlive() {
         return alive;
+    }
+
+    public boolean isOnline() {
+        return getPlayer() != null;
     }
 
     public void setAlive(boolean alive) {

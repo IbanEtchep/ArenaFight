@@ -24,8 +24,8 @@ import java.util.UUID;
 
 public class DuelCMD implements CommandExecutor {
 
-    private ArenaFightPlugin plugin;
-    private Map<UUID, DuelRequest> duelsRequests = new HashMap<>();
+    private final ArenaFightPlugin plugin;
+    private final Map<UUID, DuelRequest> duelsRequests = new HashMap<>();
 
     public DuelCMD(ArenaFightPlugin plugin) {
         this.plugin = plugin;
@@ -33,8 +33,7 @@ public class DuelCMD implements CommandExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(sender instanceof Player){
-            Player player = (Player) sender;
+        if(sender instanceof Player player){
             if(args.length == 0){
                 player.sendMessage("/duel <joueur>");
             }
@@ -42,27 +41,23 @@ public class DuelCMD implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 if(target != null && target != player){
                     new KitSelectMenu(player, kit -> {
-                        if(target != null){
-                            duelsRequests.put(player.getUniqueId(), new DuelRequest(player, target, kit));
-                            String bar = "§7§m---------------------------------------------";
-                            Component accept = Component.text("ACCEPTER")
-                                    .color(TextColor.fromCSSHexString("#6ab04c"))
-                                    .clickEvent(ClickEvent.runCommand("/duel accept " + player.getName()))
-                                    .hoverEvent(HoverEvent.showText(Component.text("Cliquez pour accepter la demande").color(TextColor.fromHexString("#badc58"))));
+                        duelsRequests.put(player.getUniqueId(), new DuelRequest(player, target, kit));
+                        String bar = "§7§m---------------------------------------------";
+                        Component accept = Component.text("ACCEPTER")
+                                .color(TextColor.fromCSSHexString("#6ab04c"))
+                                .clickEvent(ClickEvent.runCommand("/duel accept " + player.getName()))
+                                .hoverEvent(HoverEvent.showText(Component.text("Cliquez pour accepter la demande").color(TextColor.fromHexString("#badc58"))));
 
-                            Component deny = Component.text("REFUSER")
-                                    .color(TextColor.fromCSSHexString("#eb4d4b"))
-                                    .clickEvent(ClickEvent.runCommand("/duel deny " + player.getName()))
-                                    .hoverEvent(HoverEvent.showText(Component.text("Cliquez pour refuser la demande").color(TextColor.fromHexString("#ff7979"))));
+                        Component deny = Component.text("REFUSER")
+                                .color(TextColor.fromCSSHexString("#eb4d4b"))
+                                .clickEvent(ClickEvent.runCommand("/duel deny " + player.getName()))
+                                .hoverEvent(HoverEvent.showText(Component.text("Cliquez pour refuser la demande").color(TextColor.fromHexString("#ff7979"))));
 
-                            target.sendMessage(bar);
-                            target.sendMessage("§6"+ player.getName() + "§f vous défie en §eduel§f avec le kit §e"+ kit.getDisplayName() +"§f !");
-                            target.sendMessage(Component.text("Vous pouvez ").append(accept).append(Component.text(" ou ")).append(deny).append(Component.text(".")));
-                            target.sendMessage(bar);
-                            player.sendMessage("§aLa demande a bien été envoyée.");
-                        }else{
-                            player.sendMessage("§cLe joueur s'est déconnecté.");
-                        }
+                        target.sendMessage(bar);
+                        target.sendMessage("§6"+ player.getName() + "§f vous défie en §eduel§f avec le kit §e"+ kit.getDisplayName() +"§f !");
+                        target.sendMessage(Component.text("Vous pouvez ").append(accept).append(Component.text(" ou ")).append(deny).append(Component.text(".")));
+                        target.sendMessage(bar);
+                        player.sendMessage("§aLa demande a bien été envoyée.");
                     }).open();
                 }else{
                     player.sendMessage("§cCe joueur n'est pas en ligne.");
@@ -72,18 +67,18 @@ public class DuelCMD implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[1]);
                 if(target != null){
                     if(duelsRequests.containsKey(target.getUniqueId()) && duelsRequests.get(target.getUniqueId()).getPlayerTo() == player){
-                        switch (args[0]){
-                            case "accept":
-                                target.sendMessage("§a"+player.getName()+ " a accepté votre demande de duel. Vous avez été placés dans la file d'attente.");
+                        switch (args[0]) {
+                            case "accept" -> {
+                                target.sendMessage("§a" + player.getName() + " a accepté votre demande de duel. Vous avez été placés dans la file d'attente.");
                                 player.sendMessage("§aVotre duel a été placé dans la file d'attente.");
                                 plugin.getFightManager().addDuelToQueue(duelsRequests.get(target.getUniqueId()));
                                 duelsRequests.remove(target.getUniqueId());
-                                break;
-                            case "deny":
-                                target.sendMessage("§c"+player.getName() + " a rejeté votre demande de duel.");
+                            }
+                            case "deny" -> {
+                                target.sendMessage("§c" + player.getName() + " a rejeté votre demande de duel.");
                                 player.sendMessage("§cVous avez rejeté la demande de duel.");
                                 duelsRequests.remove(target.getUniqueId());
-                                break;
+                            }
                         }
                     }else{
                         player.sendMessage("§cVous n'avez pas de requête de ce joueur.");

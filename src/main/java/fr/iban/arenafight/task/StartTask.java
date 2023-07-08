@@ -41,7 +41,7 @@ public class StartTask extends BukkitRunnable {
                     player.playNote(player.getLocation(), Instrument.BASS_DRUM, Note.flat(1, Note.Tone.A));
                     player.showTitle(Title.title(
                             Component.text("C'est parti !").color(TextColor.fromHexString("#eb4d4b")),
-                            Component.text("Puisse le sort vous être favorable.").color(TextColor.fromHexString("#ff7979"))));
+                            Component.text("Que le meilleur gagne !").color(TextColor.fromHexString("#ff7979"))));
                 }
             });
             callback.call();

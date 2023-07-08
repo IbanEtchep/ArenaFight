@@ -10,11 +10,14 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 
 import java.util.*;
 
 public class Fight {
 
+    private final ArenaFightPlugin plugin;
+    private final Map<UUID, Kit> savedInventories = new HashMap<>();
     private GameState gameState = GameState.WAITING;
     private final Arena arena;
     private final Map<Team, Collection<ArenaPlayer>> teams = new HashMap<>();
@@ -22,10 +25,8 @@ public class Fight {
     private Kit kit;
     private int rounds = 1;
     private int currentRound = 1;
-    private Map<UUID, Kit> savedInventories = new HashMap<>();
     private UUID host;
 
-    private ArenaFightPlugin plugin;
 
     public Fight(ArenaFightPlugin plugin, Arena arena) {
         this.arena = arena;
@@ -87,20 +88,8 @@ public class Fight {
 
 
     public boolean canStart(){
-//        plugin.getLogger().info("canStart = " + (players.size() >= 2
-//                && players.size()%teams.size() == 0
-//                && !arena.hasFightRunning()
-//                && teams.size() >= 2
-//                && areTeamsFilled()));
-//        plugin.getLogger().info((players.size() >= 2)
-//                + " " +(players.size()%teams.size() == 0)
-//                + " " + !arena.hasFightRunning()
-//                + " " + (teams.size() >= 2)
-//        + " " + areTeamsFilled());
-//        plugin.getLogger().info("psize " + players.size());
-//        plugin.getLogger().info("teamsize " + teams.size());
-
-        return players.size() >= 2
+        return arePlayersReady()
+                && players.size() >= 2
                 && players.size()%teams.size() == 0
                 && !arena.hasFightRunning()
                 && teams.size() >= 2
@@ -173,7 +162,7 @@ public class Fight {
     }
 
     public List<Team> getAliveTeams(){
-        return teams.keySet().stream().filter(team -> isAlive(team)).toList();
+        return teams.keySet().stream().filter(this::isAlive).toList();
     }
 
     public UUID getHost() {
@@ -200,6 +189,17 @@ public class Fight {
 
     public Arena getArena() {
         return arena;
+    }
+
+    private boolean arePlayersReady() {
+        for (ArenaPlayer arenaPlayer : players.values()) {
+            Player player = arenaPlayer.getPlayer();
+            if(!arenaPlayer.isOnline() || player.getOpenInventory().getType() == InventoryType.SHULKER_BOX) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     @Override

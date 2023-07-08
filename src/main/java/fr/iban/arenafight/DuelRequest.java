@@ -4,8 +4,8 @@ import org.bukkit.entity.Player;
 
 public class DuelRequest {
 
-    private Player playerFrom;
-    private Player playerTo;
+    private final Player playerFrom;
+    private final Player playerTo;
     private Kit kit;
 
     public DuelRequest(Player playerFrom, Player playerTo, Kit kit) {

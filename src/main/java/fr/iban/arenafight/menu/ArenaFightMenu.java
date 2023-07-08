@@ -18,20 +18,6 @@ import java.util.Map;
 
 public class ArenaFightMenu extends LazyPaginatedMenu<Fight> {
 
-    /*
-    Boutons :
-    Fille d'attente - tous les combats
-    Page suivant - précédent
-
-    Combat rapide (coute 100$, le gagnant gagne 200$)
-    Créer un combat personnalisé
-
-    Combat en cours
-     */
-
-    private FightManager manager;
-
-
     public ArenaFightMenu(Player player) {
         super(player);
     }
@@ -57,9 +43,7 @@ public class ArenaFightMenu extends LazyPaginatedMenu<Fight> {
 
     @Override
     protected List<Fight> getLazyObjectList() {
-        List<Fight> waitingList = new ArrayList<>();
-        waitingList.addAll(ArenaFightPlugin.getInstance().getFightManager().getWaitingList());
-        return waitingList;
+        return new ArrayList<>(ArenaFightPlugin.getInstance().getFightManager().getWaitingList());
     }
 
     @Override
