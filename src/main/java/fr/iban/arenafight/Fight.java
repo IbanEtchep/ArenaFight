@@ -50,6 +50,7 @@ public class Fight {
         for(ArenaPlayer arenaPlayer : getArenaPlayers().values()){
             Player player = arenaPlayer.getPlayer();
             player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getValue());
+            player.leaveVehicle();
             arenaPlayer.saveInventory();
             Location spawnLoc = arena.getSpawnPoints().get(arenaPlayer.getTeam()).getSpawnLocation();
             player.teleportAsync(spawnLoc);
